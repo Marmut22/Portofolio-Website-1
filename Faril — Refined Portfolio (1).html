@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" data-sites-preview-theme="custom">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faril — Personal Portfolio</title>
+<style>
+:root {
+  --site-primary: #343638;
+  --site-secondary: #e6e5e2;
+  --site-background: #f1f0ed;
+  --site-on-primary: #f8f7f4;
+  --site-on-secondary: #353638;
+  --site-on-background: #353638;
+  --site-font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --site-font-heading: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+  color-scheme: light dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+body { margin: 0; font-family: var(--site-font-body); background: var(--site-background); color: var(--site-on-background); }
+#app { min-height: 100vh; width: 100%; border-radius: 0; background-color: var(--site-background); color: var(--site-on-background); overflow: clip; }
+button, input { font: inherit; }
+a { color: inherit; text-decoration: none; }
+::selection { background: #c8c7c1; color: #242526; }
+.shell { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+.topbar { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px); background: light-dark(rgba(241,240,237,.86), rgba(32,33,34,.88)); border-bottom: 1px solid light-dark(#deddd8,#414244); }
+.nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.wordmark { display: flex; align-items: center; gap: 10px; font-weight: 760; letter-spacing: -.06em; font-size: 1.16rem; }
+.mark { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 10px; background: var(--site-primary); color: var(--site-on-primary); font-size: .82rem; letter-spacing: -.04em; }
+.navlinks { display: flex; align-items: center; gap: 28px; color: light-dark(#686967,#b7b7b3); font-size: .86rem; }
+.navlinks a { transition: color .2s ease; }
+.navlinks a:hover { color: var(--site-on-background); }
+.nav-cta,.button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid var(--site-primary); background: var(--site-primary); color: var(--site-on-primary); border-radius: 999px; padding: 12px 18px; font-size: .85rem; font-weight: 650; cursor: pointer; transition: transform .25s ease, background .25s ease, box-shadow .25s ease; }
+.nav-cta:hover,.button:hover { transform: translateY(-2px); box-shadow: 0 9px 24px rgba(20,20,20,.12); }
+.button.secondary { background: transparent; color: var(--site-on-background); border-color: light-dark(#c8c7c1,#555658); }
+.menu-toggle { display: none; border: 1px solid light-dark(#d4d3ce,#4a4b4d); background: transparent; color: inherit; border-radius: 50%; width: 42px; height: 42px; cursor: pointer; }
+.hero { padding: clamp(70px, 10vw, 132px) 0 86px; position: relative; }
+.hero-grid { display: grid; grid-template-columns: 1.22fr .78fr; gap: clamp(38px, 7vw, 100px); align-items: center; }
+.eyebrow { display: inline-flex; align-items: center; gap: 9px; color: light-dark(#777874,#b8b8b2); text-transform: uppercase; font-size: .72rem; letter-spacing: .15em; font-weight: 700; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: #7b927f; box-shadow: 0 0 0 4px rgba(123,146,127,.13); }
+h1,h2,h3,p { margin-top: 0; }
+h1 { font-family: var(--site-font-heading); font-size: clamp(3.6rem, 8vw, 7.5rem); line-height: .91; letter-spacing: -.085em; font-weight: 650; margin: 26px 0 25px; max-width: 740px; }
+.hero h1 span { color: light-dark(#8b8b86,#a5a59e); }
+.lead { color: light-dark(#696a67,#b8b8b2); max-width: 560px; line-height: 1.85; font-size: clamp(1rem, 1.6vw, 1.13rem); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.hero-note { display: flex; align-items: center; gap: 12px; color: light-dark(#7d7e79,#a6a69f); font-size: .8rem; margin-top: 35px; }
+.note-line { height: 1px; width: 34px; background: light-dark(#bdbcb5,#62635e); }
+.portrait-wrap { position: relative; max-width: 370px; width: 100%; justify-self: end; }
+.portrait { position: relative; aspect-ratio: .82; border-radius: 46% 46% 22px 22px; background: linear-gradient(145deg, light-dark(#deddd8,#4a4b4a), light-dark(#c9c8c1,#333534)); overflow: hidden; display: grid; place-items: center; border: 1px solid light-dark(#d0cfca,#4a4b4a); }
+.portrait img { display: none; width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.portrait.has-image img { display: block; }
+.portrait-placeholder { width: 76%; height: 76%; border-radius: 48% 48% 20px 20px; display: grid; place-items: center; color: light-dark(#a2a19a,#65665f); font-size: clamp(5rem, 12vw, 9rem); letter-spacing: -.12em; font-weight: 650; background: linear-gradient(160deg, light-dark(#e9e8e3,#575854), light-dark(#cbcac3,#373835)); }
+.portrait.has-image .portrait-placeholder { display: none; }
+.portrait-caption { position: absolute; bottom: 18px; left: 18px; right: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 15px; background: light-dark(rgba(245,244,240,.85),rgba(34,35,34,.86)); backdrop-filter: blur(12px); border: 1px solid light-dark(rgba(255,255,255,.7),rgba(255,255,255,.12)); border-radius: 15px; font-size: .77rem; }
+.portrait-caption strong { display: block; font-size: .85rem; margin-bottom: 3px; }
+.caption-muted { color: light-dark(#777873,#b7b7b0); }
+.float-chip { position: absolute; top: 15%; left: -38px; padding: 13px 16px; border: 1px solid light-dark(#d7d6d0,#4c4d4a); border-radius: 14px; background: light-dark(rgba(247,246,242,.94),rgba(42,43,41,.95)); box-shadow: 0 12px 35px rgba(30,30,28,.06); font-size: .75rem; animation: float 5s ease-in-out infinite; }
+.portrait { transition: transform .45s cubic-bezier(.2,.7,.2,1), box-shadow .45s ease; }
+.portrait-wrap:hover .portrait { box-shadow: 0 28px 70px rgba(25,25,22,.13); }
+.portrait img, .project-image img { transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s ease; }
+.portrait:hover img, .project-card:hover .project-image img { transform: scale(1.045); }
+.project-image::after { content: ""; position: absolute; inset: -80% auto -80% -50%; width: 35%; transform: rotate(18deg); background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent); transition: left .8s ease; pointer-events: none; }
+.project-card:hover .project-image::after { left: 130%; }
+.project-card { will-change: transform; transform-style: preserve-3d; }
+.tag { transition: transform .25s ease, border-color .25s ease; }
+.tag:hover { transform: translateY(-3px); border-color: light-dark(#999991,#777871); }
+.status-dot { animation: pulse-dot 2.4s ease-in-out infinite; }
+@keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 4px rgba(123,146,127,.13); } 50% { box-shadow: 0 0 0 8px rgba(123,146,127,.04); } }
+.float-chip strong { display: block; font-size: .92rem; margin-top: 4px; }
+.section { padding: 88px 0; border-top: 1px solid light-dark(#deddd8,#414244); }
+.section-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 38px; }
+.kicker { color: light-dark(#898a84,#a9aaa3); font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; font-weight: 750; margin-bottom: 15px; }
+h2 { font-size: clamp(2.15rem, 4.6vw, 4rem); letter-spacing: -.065em; line-height: 1.02; font-weight: 620; margin-bottom: 0; }
+.section-desc { color: light-dark(#777873,#b7b7b0); max-width: 365px; line-height: 1.75; font-size: .92rem; margin-bottom: 2px; }
+.about-grid { display: grid; grid-template-columns: .72fr 1.28fr; gap: clamp(35px, 8vw, 110px); }
+.about-aside { padding: 25px; background: var(--site-secondary); border-radius: calc(22px * var(--site-radius-scale)); min-height: 235px; display: flex; flex-direction: column; justify-content: space-between; }
+.aside-number { font-size: 3.6rem; letter-spacing: -.08em; font-weight: 620; color: light-dark(#a3a29b,#777872); }
+.aside-label { max-width: 190px; line-height: 1.5; font-size: .92rem; }
+.about-copy p { color: light-dark(#686965,#b8b8b2); line-height: 1.9; font-size: 1rem; }
+.about-copy p:first-child { color: var(--site-on-background); font-size: clamp(1.15rem, 2vw, 1.4rem); line-height: 1.65; letter-spacing: -.025em; }
+.tag-list { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 23px; }
+.tag { padding: 9px 13px; border: 1px solid light-dark(#d2d1cb,#4a4b49); border-radius: 999px; color: light-dark(#62635f,#c1c1ba); font-size: .77rem; }
+.projects-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; }
+.project-card { border: 1px solid light-dark(#d9d8d2,#454643); background: light-dark(#e9e8e3,#292a28); border-radius: calc(22px * var(--site-radius-scale)); padding: 14px; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; overflow: hidden; }
+.project-card:hover { transform: translateY(-6px); border-color: light-dark(#aaa9a1,#6a6b66); box-shadow: 0 18px 40px rgba(20,20,18,.07); }
+.project-image { aspect-ratio: 1.6; border-radius: 14px; background: linear-gradient(135deg, light-dark(#d8d7d1,#41423e), light-dark(#c5c4bd,#343531)); overflow: hidden; position: relative; display: grid; place-items: center; }
+.project-image img { display: none; width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.project-image.has-image img { display: block; }
+.project-image.has-image .project-art { display: none; }
+.project-art { text-align: center; padding: 20px; }
+.project-art .art-mark { display: block; font-size: clamp(2rem,5vw,4rem); letter-spacing: -.1em; font-weight: 760; color: light-dark(#777871,#b1b1a8); }
+.project-art small { display: block; color: light-dark(#85867f,#a6a69f); margin-top: 6px; letter-spacing: .14em; font-size: .62rem; text-transform: uppercase; }
+.project-meta { display: flex; justify-content: space-between; gap: 15px; margin: 20px 8px 8px; align-items: start; }
+.project-meta h3 { font-size: 1.22rem; letter-spacing: -.04em; margin-bottom: 8px; }
+.project-meta p { color: light-dark(#777873,#b4b4ad); font-size: .83rem; line-height: 1.65; max-width: 390px; margin-bottom: 0; }
+.project-index { color: light-dark(#969790,#a3a49d); font-size: .75rem; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 18px 8px 8px; }
+.project-tags span { color: light-dark(#747570,#b3b3ad); background: light-dark(#deddd7,#383936); padding: 6px 9px; border-radius: 999px; font-size: .68rem; }
+.add-photo { border: 1px dashed light-dark(#b6b5ad,#5b5c57); background: transparent; color: light-dark(#62635e,#c1c1ba); border-radius: 999px; padding: 9px 12px; font-size: .73rem; cursor: pointer; transition: background .2s ease; }
+.add-photo:hover { background: var(--site-secondary); }
+.photo-help { margin-top: 22px; padding: 17px 20px; border-radius: 15px; background: var(--site-secondary); display: flex; gap: 12px; align-items: start; color: light-dark(#6e6f69,#c1c1ba); font-size: .82rem; line-height: 1.7; }
+.photo-help b { color: var(--site-on-background); }
+.journey-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
+.journey-card { padding: 24px; border: 1px solid light-dark(#d9d8d2,#454643); border-radius: calc(19px * var(--site-radius-scale)); }
+.journey-card .mini-icon { width: 39px; height: 39px; display: grid; place-items: center; background: var(--site-secondary); border-radius: 12px; margin-bottom: 28px; font-size: 1rem; }
+.journey-card h3 { font-size: 1.08rem; letter-spacing: -.035em; margin-bottom: 10px; }
+.journey-card p { color: light-dark(#777873,#b4b4ad); line-height: 1.75; font-size: .85rem; margin-bottom: 0; }
+.contact-panel { background: var(--site-primary); color: var(--site-on-primary); border-radius: calc(28px * var(--site-radius-scale)); padding: clamp(28px, 6vw, 68px); display: flex; align-items: end; justify-content: space-between; gap: 35px; }
+.contact-panel .kicker { color: light-dark(#c5c5be,#c6c6bf); }
+.contact-panel h2 { max-width: 630px; }
+.contact-panel p { color: light-dark(#c5c5be,#c6c6bf); line-height: 1.75; max-width: 500px; margin: 20px 0 0; }
+.contact-panel .button { background: var(--site-background); color: var(--site-on-background); border-color: var(--site-background); white-space: nowrap; }
+footer { padding: 27px 0 36px; display: flex; justify-content: space-between; align-items: center; gap: 20px; color: light-dark(#85867f,#a9aaa3); font-size: .76rem; }
+.footer-links { display: flex; gap: 20px; }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .75s ease, transform .75s cubic-bezier(.2,.7,.2,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+@media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
+@media (max-width: 780px) { .shell { width: min(100% - 34px, 620px); } .nav { min-height: 68px; } .navlinks { display: none; position: absolute; top: 67px; left: 0; right: 0; padding: 20px 24px 24px; flex-direction: column; align-items: stretch; gap: 19px; background: light-dark(#f1f0ed,#202122); border-bottom: 1px solid light-dark(#deddd8,#414244); } .navlinks.open { display: flex; } .nav-cta { display: none; } .menu-toggle { display: grid; place-items: center; } .hero { padding-top: 66px; } .hero-grid { grid-template-columns: 1fr; gap: 48px; } .portrait-wrap { justify-self: center; width: min(78%,330px); } .float-chip { left: -22px; } .section { padding: 66px 0; } .section-head { align-items: start; flex-direction: column; gap: 18px; } .about-grid { grid-template-columns: 1fr; gap: 25px; } .about-aside { min-height: 170px; } .projects-grid { grid-template-columns: 1fr; } .journey-grid { grid-template-columns: 1fr; } .contact-panel { align-items: start; flex-direction: column; } footer { align-items: start; flex-direction: column; } }
+@media (min-width: 781px) and (max-width: 1000px) { .hero-grid { gap: 40px; } .float-chip { left: -20px; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="shell nav">
+      <a class="wordmark" href="#home" aria-label="Rafa Faril Hendrawan home"><span class="mark">RF.</span><span>faril<span style="color:light-dark(#969790,#a9aaa3)">/</span></span></a>
+      <nav class="navlinks" id="navlinks" aria-label="Main navigation"><a href="#about">About</a><a href="#projects">Selected work</a><a href="#journey">What I’m learning</a><a href="https://www.instagram.com/vbrookke" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="#contact">Contact</a></nav>
+      <a class="nav-cta" href="#projects">Explore my work <span aria-hidden="true">↗</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    </div>
+  </header>
+  <main>
+    <section class="hero" id="home"><div class="shell hero-grid">
+      <div class="hero-copy reveal"><div class="eyebrow"><span class="status-dot"></span> Curious mind · Building in public</div>
+        <h1>Hi, I’m<br><span>Rafa Faril.</span></h1>
+        <p class="lead">A student exploring the space between technology and business. I like turning ideas into real projects, learning by doing, and getting a little better with every build.</p>
+        <div class="hero-actions"><a class="button" href="#projects">See selected work <span aria-hidden="true">↘</span></a><a class="button secondary" href="#about">A little about me</a></div>
+        <div class="hero-note"><span class="note-line"></span> Currently learning, experimenting, and building my next chapter.</div>
+      </div>
+      <div class="portrait-wrap reveal"><div class="float-chip">A work in progress<strong>Always learning ↗</strong></div>
+        <div class="portrait" id="portraitBox"><img id="portraitImage" src="rafa faril h.JPG" alt="Portrait of Rafa Faril Hendrawan"><div class="portrait-placeholder">RF.</div><div class="portrait-caption"><div><strong>Rafa Faril Hendrawan</strong><span class="caption-muted">IT × Entrepreneurship</span></div><button class="add-photo" data-photo-target="portraitImage" data-box-target="portraitBox">Preview photo</button></div></div>
+      </div>
+    </div></section>
+    <section class="section" id="about"><div class="shell"><div class="section-head reveal"><div><div class="kicker">01 / A little context</div><h2>Curiosity, with<br>intent behind it.</h2></div><p class="section-desc">I’m building my skills one project at a time—connecting what I learn in tech with the mindset of making something useful.</p></div>
+      <div class="about-grid"><div class="about-aside reveal"><div class="aside-number">01—∞</div><div class="aside-label">Start small. Stay curious. Keep building.</div></div><div class="about-copy reveal"><p>I’m interested in how things work—whether that’s a website, a computer network, or a small business.</p><p>Alongside learning about IT, I’ve been developing RafaBites, a snack brand I started selling at school. It taught me that an idea becomes more meaningful when you actually test it, listen to people, and improve the details.</p><p>This portfolio is a living record of what I’m learning and making. It will grow as I do, with real work, honest progress, and lessons along the way.</p><div class="tag-list"><span class="tag">Web development</span><span class="tag">Networking</span><span class="tag">Linux exploration</span><span class="tag">Entrepreneurship</span><span class="tag">Learning by doing</span></div></div></div>
+    </div></section>
+    <section class="section" id="projects"><div class="shell"><div class="section-head reveal"><div><div class="kicker">02 / Selected work</div><h2>Things I’m<br>building.</h2></div><p class="section-desc">A starting collection of projects and experiments. Add screenshots, links, and details as each piece develops.</p></div>
+      <div class="projects-grid">
+        <article class="project-card reveal"><div class="project-image" id="projectBox1"><img id="projectImage1" src="rafabites.jpg" alt="RafaBites project preview"><div class="project-art"><span class="art-mark">RB.</span><small>A snack brand in progress</small></div></div><div class="project-meta"><div><h3>RafaBites</h3><p>A school snack business I started in junior high and am working to develop further—learning about products, pricing, presentation, and customers.</p></div><span class="project-index">01</span></div><div class="project-tags"><span>Entrepreneurship</span><span>Brand building</span><span>Product</span></div><div style="margin:17px 8px 8px"><button class="add-photo" data-photo-target="projectImage1" data-box-target="projectBox1">Preview project photo</button></div></article>
+        <article class="project-card reveal"><div class="project-image" id="projectBox2"><img id="projectImage2" src="webdeve.g.jpg" alt="Personal website project preview"><div class="project-art"><span class="art-mark">&lt;/&gt;</span><small>Learning through the web</small></div></div><div class="project-meta"><div><h3>Web experiments</h3><p>Small website projects to practise structure, layout, responsive design, and interactive details with HTML, CSS, and JavaScript.</p></div><span class="project-index">02</span></div><div class="project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div><div style="margin:17px 8px 8px"><button class="add-photo" data-photo-target="projectImage2" data-box-target="projectBox2">Preview project screenshot</button></div></article>
+        <article class="project-card reveal"><div class="project-image" id="projectBox3"><img id="projectImage3" src="coming soon.jpg" alt="IT learning project preview"><div class="project-art"><span class="art-mark">01:01</span><small>Explore · Test · Understand</small></div></div><div class="project-meta"><div><h3>IT learning lab</h3><p>A personal learning track for computer systems, networking, Linux, and ethical cybersecurity fundamentals through permitted practice environments.</p></div><span class="project-index">03</span></div><div class="project-tags"><span>IT fundamentals</span><span>Networking</span><span>Linux</span></div><div style="margin:17px 8px 8px"><button class="add-photo" data-photo-target="projectImage3" data-box-target="projectBox3">Preview lab photo</button></div></article>
+        <article class="project-card reveal"><div class="project-image" id="projectBox4"><img id="projectImage4" src="coming soon.jpg" alt="Future project preview"><div class="project-art"><span class="art-mark">+ ?</span><small>Your next project goes here</small></div></div><div class="project-meta"><div><h3>Next up</h3><p>Leave space for the next real thing you finish. A short case study is better than a long list of unfinished ideas.</p></div><span class="project-index">04</span></div><div class="project-tags"><span>In progress</span><span>Coming when ready</span></div><div style="margin:17px 8px 8px"><button class="add-photo" data-photo-target="projectImage4" data-box-target="projectBox4">Preview project photo</button></div></article>
+      </div>
+      <div class="photo-help reveal"><span aria-hidden="true">✳</span><div><b>Make it yours.</b> Permanent image paths are prepared: <code>images/faril.jpg</code>, <code>images/rafabites.jpg</code>, <code>images/website-project.png</code>, <code>images/it-lab.jpg</code>, and <code>images/next-project.jpg</code>. Create an <code>images</code> folder beside <code>index.html</code> in VS Code and use those exact filenames. The preview buttons only test an image temporarily; they do not save it into your published website.</div></div>
+      <input type="file" id="photoPicker" accept="image/*" hidden>
+    </div></section>
+    <section class="section" id="journey"><div class="shell"><div class="section-head reveal"><div><div class="kicker">03 / The learning curve</div><h2>Still learning.<br>On purpose.</h2></div><p class="section-desc">These are areas I’m exploring, not claims of mastery. The goal is to keep practising and show the work as it improves.</p></div>
+      <div class="journey-grid"><article class="journey-card reveal"><div class="mini-icon">⌘</div><h3>Building for the web</h3><p>Creating clean, accessible websites and improving at HTML, CSS, JavaScript, responsive layouts, and useful interactions.</p></article><article class="journey-card reveal"><div class="mini-icon">⌁</div><h3>Understanding systems</h3><p>Learning how computers, networks, and Linux work, with an emphasis on safe labs and ethical cybersecurity basics.</p></article><article class="journey-card reveal"><div class="mini-icon">↗</div><h3>Growing a business</h3><p>Learning through RafaBites: testing ideas, understanding customers, presenting products, and building sustainable habits.</p></article></div>
+    </div></section>
+    <section class="section" id="contact"><div class="shell"><div class="contact-panel reveal"><div><div class="kicker">04 / Say hello</div><h2>Good things start with a conversation.</h2><p>Want to talk about a project, share an idea, or connect over tech and business? Find me on Instagram or reach out about a project.</p></div><a class="button" id="contactButton" href="https://www.instagram.com/vbrookke" target="_blank" rel="noopener noreferrer">Connect on Instagram <span aria-hidden="true">↗</span></a></div></div></section>
+  </main>
+  <footer class="shell"><span>© <span id="year"></span> Rafa Faril Hendrawan. Made while learning.</span><div class="footer-links"><a href="https://www.instagram.com/vbrookke" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="#home">Back to top ↑</a><a href="#projects">Projects</a></div></footer>
+</div>
+<script>
+const menuToggle = document.getElementById('menuToggle');
+const navlinks = document.getElementById('navlinks');
+menuToggle.addEventListener('click', () => {
+  const open = navlinks.classList.toggle('open');
+  menuToggle.setAttribute('aria-expanded', String(open));
+  menuToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  menuToggle.textContent = open ? '×' : '☰';
+});
+navlinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+  navlinks.classList.remove('open'); menuToggle.setAttribute('aria-expanded', 'false'); menuToggle.textContent = '☰';
+}));
+document.getElementById('year').textContent = new Date().getFullYear();
+// Load local image files permanently stored in the images folder.
+document.querySelectorAll('.portrait img[src], .project-image img[src]').forEach(image => {
+  image.addEventListener('load', () => image.closest('.portrait, .project-image').classList.add('has-image'));
+  image.addEventListener('error', () => image.closest('.portrait, .project-image').classList.remove('has-image'));
+  if (image.complete && image.naturalWidth > 0) image.closest('.portrait, .project-image').classList.add('has-image');
+});
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const photoPicker = document.getElementById('photoPicker');
+let selectedImage = null;
+document.querySelectorAll('[data-photo-target]').forEach(button => button.addEventListener('click', () => {
+  selectedImage = { imageId: button.dataset.photoTarget, boxId: button.dataset.boxTarget };
+  photoPicker.click();
+}));
+photoPicker.addEventListener('change', () => {
+  const file = photoPicker.files && photoPicker.files[0];
+  if (!file || !selectedImage) return;
+  if (!file.type.startsWith('image/')) { alert('Please choose an image file.'); return; }
+  const reader = new FileReader();
+  reader.onload = () => {
+    const image = document.getElementById(selectedImage.imageId);
+    const box = document.getElementById(selectedImage.boxId);
+    image.src = reader.result;
+    box.classList.add('has-image');
+  };
+  reader.readAsDataURL(file);
+  photoPicker.value = '';
+});
+// Gentle 3D tilt on desktop project cards; reduced-motion users are respected.
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('pointermove', event => {
+      const rect = card.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - .5;
+      const y = (event.clientY - rect.top) / rect.height - .5;
+      card.style.transform = `perspective(900px) rotateX(${y * -2.5}deg) rotateY(${x * 2.5}deg) translateY(-4px)`;
+    });
+    card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+  });
+}
+// Change this to your real public contact email before publishing.
+const contactEmail = '@hendrawati11231@gmail.com';
+if (contactEmail) document.getElementById('contactButton').href = 'mailto:' + contactEmail;
+</script>
+</body>
+</html>
