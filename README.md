@@ -8,7 +8,7 @@
 *Curious mind. Building with purpose.*
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-Personal%20Website-c8ff77?style=for-the-badge&logo=googlechrome&logoColor=black)](#)
-[![GitHub](https://img.shields.io/badge/GitHub-Profile-181717?style=for-the-badge&logo=github)](https://github.com/USERNAME)
+[![GitHub](https://img.shields.io/badge/GitHub-Profile-181717?style=for-the-badge&logo=github)](https://github.com/Marmut22)
 [![Instagram](https://img.shields.io/badge/Instagram-Connect-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/vbrookke)
 
 </div>
