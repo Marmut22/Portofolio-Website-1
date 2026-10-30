@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rafa Faril — IT × Entrepreneurship</title>
+<meta name="description" content="Portfolio of Rafa Faril Hendrawan — a student exploring web development, networking, and entrepreneurship through RafaBites and hands-on projects.">
+<meta property="og:title" content="Rafa Faril — Personal Portfolio">
+<meta property="og:description" content="Curiosity, with intent behind it. Web, networking, and a snack brand in progress.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#f1f0ed">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23343638'/%3E%3Ctext x='32' y='42' font-size='26' font-family='Arial' font-weight='700' text-anchor='middle' fill='%23f8f7f4'%3ERF%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:light-dark(#f1f0ed,#171817);
+  --surface:light-dark(#e9e8e3,#222322);
+  --surface-2:light-dark(#e1e0da,#2c2d2b);
+  --text:light-dark(#2a2b2c,#efeeea);
+  --muted:light-dark(#5f605c,#b3b3ac);
+  --faint:light-dark(#797a74,#97978f);
+  --line:light-dark(#d9d8d2,#383937);
+  --ink:light-dark(#343638,#efeeea);
+  --on-ink:light-dark(#f8f7f4,#171817);
+  --accent:light-dark(#5e7a64,#8fb596);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --font:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Instrument Serif",Georgia,serif;
+}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+h1,h2,h3,p{margin-top:0}
+::selection{background:var(--accent);color:var(--bg)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+.shell{width:min(1120px,calc(100% - 48px));margin-inline:auto}
+.progress{position:fixed;top:0;left:0;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;z-index:50}
+
+/* nav */
+.topbar{position:sticky;top:0;z-index:40;backdrop-filter:blur(16px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.wordmark{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.04em}
+.mark{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:var(--ink);color:var(--on-ink);font-size:.78rem}
+.navlinks{display:flex;gap:26px;font-size:.86rem;color:var(--muted)}
+.navlinks a{position:relative;padding:4px 0;transition:color .2s}
+.navlinks a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.navlinks a:hover,.navlinks a.active{color:var(--text)}
+.navlinks a:hover::after,.navlinks a.active::after{transform:scaleX(1)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.icon-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;cursor:pointer;display:grid;place-items:center;transition:background .2s,transform .2s}
+.icon-btn:hover{background:var(--surface)}
+.icon-btn:active{transform:scale(.92)}
+.menu-toggle{display:none}
+
+/* buttons */
+.button{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--ink);background:var(--ink);color:var(--on-ink);border-radius:999px;padding:13px 20px;font-size:.86rem;font-weight:600;cursor:pointer;transition:transform .3s var(--ease),box-shadow .3s}
+.button:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.14)}
+.button.secondary{background:transparent;color:var(--text);border-color:var(--line)}
+.button.secondary:hover{border-color:var(--faint)}
+
+/* hero */
+.hero{padding:clamp(64px,10vw,124px) 0 80px}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(36px,7vw,96px);align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--faint);text-transform:uppercase;font-size:.72rem;letter-spacing:.15em;font-weight:700}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}50%{box-shadow:0 0 0 8px transparent}}
+h1{font-size:clamp(3.4rem,8vw,7rem);line-height:.92;letter-spacing:-.07em;font-weight:600;margin:24px 0}
+h1 em{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.03em;color:var(--faint)}
+.lead{color:var(--muted);max-width:540px;line-height:1.8;font-size:clamp(1rem,1.5vw,1.12rem)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-note{display:flex;align-items:center;gap:12px;color:var(--faint);font-size:.8rem;margin-top:34px}
+.hero-note i{height:1px;width:34px;background:var(--faint)}
+.portrait-wrap{position:relative;max-width:360px;width:100%;justify-self:end}
+.portrait{position:relative;aspect-ratio:.82;border-radius:46% 46% 22px 22px;background:linear-gradient(145deg,var(--surface-2),var(--surface));overflow:hidden;display:grid;place-items:center;border:1px solid var(--line);transition:box-shadow .5s}
+.portrait-wrap:hover .portrait{box-shadow:0 28px 70px rgba(0,0,0,.14)}
+.ph{font-size:clamp(5rem,12vw,8.5rem);letter-spacing:-.12em;font-weight:600;color:var(--faint);opacity:.55}
+.portrait img,.pimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s,transform .9s var(--ease)}
+.has-image img{opacity:1}.has-image .ph,.has-image .art{opacity:0}
+.portrait:hover img,.card:hover .pimg img{transform:scale(1.045)}
+.caption{position:absolute;left:16px;right:16px;bottom:16px;padding:13px 15px;border-radius:15px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);border:1px solid var(--line);font-size:.77rem}
+.caption strong{display:block;font-size:.85rem;margin-bottom:2px}
+.caption span{color:var(--muted)}
+.chip{position:absolute;top:14%;left:-36px;z-index:2;padding:12px 16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);box-shadow:0 12px 32px rgba(0,0,0,.07);font-size:.75rem;color:var(--muted);animation:float 5s ease-in-out infinite}
+.chip strong{display:block;color:var(--text);font-size:.92rem;margin-top:3px}
+@keyframes float{50%{transform:translateY(-9px)}}
+
+/* sections */
+.section{padding:88px 0;border-top:1px solid var(--line)}
+.head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:40px}
+.kicker{color:var(--faint);font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin-bottom:14px}
+h2{font-size:clamp(2.1rem,4.6vw,3.9rem);letter-spacing:-.06em;line-height:1.03;font-weight:600;margin:0}
+h2 em{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.02em}
+.desc{color:var(--muted);max-width:360px;line-height:1.75;font-size:.92rem;margin:0}
+.about{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(32px,8vw,108px)}
+.aside{padding:26px;background:var(--surface);border-radius:22px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between}
+.aside b{font-size:3.6rem;letter-spacing:-.08em;font-weight:600;color:var(--faint)}
+.aside span{max-width:190px;line-height:1.5;font-size:.92rem}
+.about-copy p{color:var(--muted);line-height:1.9}
+.about-copy p:first-child{color:var(--text);font-size:clamp(1.15rem,2vw,1.4rem);line-height:1.6;letter-spacing:-.025em}
+.tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.tag{padding:9px 14px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.77rem;transition:transform .25s,border-color .25s}
+.tag:hover{transform:translateY(-3px);border-color:var(--faint)}
+
+/* projects */
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card{display:block;height:100%;border:1px solid var(--line);background:var(--surface);border-radius:22px;padding:14px;transition:transform .15s ease-out,border-color .3s,box-shadow .3s;will-change:transform}
+.card:hover{border-color:var(--faint);box-shadow:0 18px 44px rgba(0,0,0,.09)}
+.pimg{position:relative;aspect-ratio:1.6;border-radius:14px;background:linear-gradient(135deg,var(--surface-2),var(--line));overflow:hidden;display:grid;place-items:center}
+.pimg::after{content:"";position:absolute;inset:-80% auto -80% -50%;width:35%;transform:rotate(18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);transition:left .9s;pointer-events:none}
+.card:hover .pimg::after{left:130%}
+.art{text-align:center;padding:20px;transition:opacity .4s}
+.art b{display:block;font-size:clamp(2rem,5vw,3.6rem);letter-spacing:-.1em;font-weight:700;color:var(--faint);opacity:.7}
+.art small{display:block;color:var(--faint);margin-top:6px;letter-spacing:.14em;font-size:.62rem;text-transform:uppercase}
+.meta{display:flex;justify-content:space-between;gap:15px;margin:20px 8px 8px}
+.meta h3{font-size:1.2rem;letter-spacing:-.04em;margin-bottom:8px}
+.meta p{color:var(--muted);font-size:.84rem;line-height:1.65;margin:0}
+.meta small{color:var(--faint);font-size:.75rem}
+.ptags{display:flex;flex-wrap:wrap;gap:7px;margin:16px 8px 6px}
+.ptags span{color:var(--muted);background:var(--surface-2);padding:6px 10px;border-radius:999px;font-size:.68rem}
+.visit{margin:14px 8px 6px;font-size:.78rem;font-weight:600;color:var(--accent);display:inline-block}
+
+.jgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.jcard{padding:24px;border:1px solid var(--line);border-radius:20px;transition:transform .3s var(--ease),background .3s}
+.jcard:hover{transform:translateY(-4px);background:var(--surface)}
+.jcard i{width:40px;height:40px;display:grid;place-items:center;background:var(--surface);border-radius:12px;margin-bottom:26px;font-style:normal}
+.jcard h3{font-size:1.08rem;letter-spacing:-.035em;margin-bottom:10px}
+.jcard p{color:var(--muted);line-height:1.75;font-size:.86rem;margin:0}
+
+.contact{background:var(--ink);color:var(--on-ink);border-radius:28px;padding:clamp(28px,6vw,68px);display:flex;align-items:end;justify-content:space-between;gap:34px}
+.contact .kicker,.contact p{color:color-mix(in srgb,var(--on-ink) 70%,transparent)}
+.contact h2{max-width:620px}
+.contact p{line-height:1.75;max-width:480px;margin:20px 0 0}
+.contact .btns{display:flex;flex-direction:column;gap:10px;min-width:210px}
+.contact .button{background:var(--on-ink);color:var(--ink);border-color:var(--on-ink);justify-content:center;white-space:nowrap}
+.contact .button.secondary{background:transparent;color:var(--on-ink);border-color:color-mix(in srgb,var(--on-ink) 35%,transparent)}
+footer{padding:26px 0 38px;display:flex;justify-content:space-between;align-items:center;gap:20px;color:var(--faint);font-size:.76rem}
+footer div{display:flex;gap:20px}
+footer a:hover{color:var(--text)}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--ink);color:var(--on-ink);padding:11px 18px;border-radius:999px;font-size:.8rem;opacity:0;pointer-events:none;transition:.4s var(--ease);z-index:60}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s,transform .8s var(--ease);transition-delay:var(--d,0s)}
+.reveal.in{opacity:1;transform:none}
+.no-js .reveal{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+@media (max-width:780px){
+  .shell{width:min(100% - 34px,620px)}
+  .navlinks{display:none;position:absolute;top:71px;left:0;right:0;padding:20px 24px 26px;flex-direction:column;gap:18px;background:var(--bg);border-bottom:1px solid var(--line)}
+  .navlinks.open{display:flex}
+  .menu-toggle{display:grid}
+  .hero-grid,.about,.grid,.jgrid{grid-template-columns:1fr}
+  .hero-grid{gap:48px}.portrait-wrap{justify-self:center;width:min(80%,320px)}.chip{left:-18px}
+  .section{padding:64px 0}.head{flex-direction:column;align-items:start;gap:16px}
+  .contact{flex-direction:column;align-items:stretch}footer{flex-direction:column;align-items:start}
+}
+</style>
+</head>
+<body class="no-js">
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <div class="shell nav">
+    <a class="wordmark" href="#home" aria-label="Home"><span class="mark">RF.</span><span>faril</span></a>
+    <nav class="navlinks" id="navlinks" aria-label="Main">
+      <a href="#about">About</a><a href="#projects">Work</a><a href="#journey">Learning</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <button class="icon-btn" id="theme" aria-label="Toggle theme">◐</button>
+      <button class="icon-btn menu-toggle" id="menu" aria-label="Open navigation" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home"><div class="shell hero-grid">
+  <div class="reveal">
+    <div class="eyebrow"><span class="dot"></span> Curious mind · Building in public</div>
+    <h1>Hi, I’m<br><em>Rafa Faril.</em></h1>
+    <p class="lead">A student exploring the space between technology and business. I turn ideas into real projects, learn by doing, and get a little better with every build.</p>
+    <div class="actions"><a class="button" href="#projects">See selected work <span aria-hidden="true">↘</span></a><a class="button secondary" href="#about">A little about me</a></div>
+    <div class="hero-note"><i></i> Currently learning, experimenting, and building my next chapter.</div>
+  </div>
+  <div class="portrait-wrap reveal" style="--d:.12s">
+    <div class="chip">A work in progress<strong>Always learning ↗</strong></div>
+    <div class="portrait"><img src="images/faril.jpg" alt="Portrait of Rafa Faril Hendrawan" loading="eager"><div class="ph">RF.</div>
+      <div class="caption"><strong>Rafa Faril Hendrawan</strong><span>IT × Entrepreneurship</span></div></div>
+  </div>
+</div></section>
+
+<section class="section" id="about"><div class="shell">
+  <div class="head reveal"><div><div class="kicker">01 / A little context</div><h2>Curiosity, with<br><em>intent</em> behind it.</h2></div>
+  <p class="desc">I’m building my skills one project at a time, connecting what I learn in tech with the mindset of making something useful.</p></div>
+  <div class="about">
+    <div class="aside reveal"><b>01—∞</b><span>Start small. Stay curious. Keep building.</span></div>
+    <div class="about-copy reveal" style="--d:.1s">
+      <p>I’m interested in how things work, whether that’s a website, a computer network, or a small business.</p>
+      <p>Alongside studying computer and network engineering (TKJ), I’ve been developing RafaBites, a snack brand I started selling at school. It taught me that an idea becomes more meaningful when you test it, listen to people, and improve the details.</p>
+      <p>This portfolio is a living record of what I’m learning and making. It grows as I do, with real work, honest progress, and lessons along the way.</p>
+      <div class="tags"><span class="tag">Web development</span><span class="tag">Networking</span><span class="tag">Linux exploration</span><span class="tag">Entrepreneurship</span><span class="tag">Learning by doing</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="section" id="projects"><div class="shell">
+  <div class="head reveal"><div><div class="kicker">02 / Selected work</div><h2>Things I’m<br><em>building.</em></h2></div>
+  <p class="desc">A starting collection of projects and experiments, growing with every finished piece.</p></div>
+  <div class="grid">
+    <div class="reveal"><article class="card"><div class="pimg"><img src="images/rafabites.jpg" alt="RafaBites project preview" loading="lazy"><div class="art"><b>RB.</b><small>A snack brand in progress</small></div></div>
+      <div class="meta"><div><h3>RafaBites</h3><p>A school snack business I started in junior high and keep developing, learning about products, pricing, presentation, and customers.</p></div><small>01</small></div>
+      <div class="ptags"><span>Entrepreneurship</span><span>Brand building</span><span>Product</span></div></article></div>
+    <div class="reveal" style="--d:.08s"><article class="card"><div class="pimg"><img src="images/jadwal-kelas.png" alt="X TKJ A class schedule website" loading="lazy"><div class="art"><b>&lt;/&gt;</b><small>Class schedule web app</small></div></div>
+      <div class="meta"><div><h3>Jadwal Kelas X TKJ A</h3><p>A class schedule site with a live “now” tracker, week calendar, and a full month view, built with plain HTML, CSS, and JavaScript.</p></div><small>02</small></div>
+      <div class="ptags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div></article></div>
+    <div class="reveal"><article class="card"><div class="pimg"><img src="images/it-lab.jpg" alt="IT learning lab preview" loading="lazy"><div class="art"><b>01:01</b><small>Explore · Test · Understand</small></div></div>
+      <div class="meta"><div><h3>IT learning lab</h3><p>A personal track for computer systems, networking, Linux, and ethical cybersecurity fundamentals, practised in permitted lab environments.</p></div><small>03</small></div>
+      <div class="ptags"><span>IT fundamentals</span><span>Networking</span><span>Linux</span></div></article></div>
+    <div class="reveal" style="--d:.08s"><article class="card"><div class="pimg"><img src="images/next-project.jpg" alt="Next project preview" loading="lazy"><div class="art"><b>+ ?</b><small>Your next project goes here</small></div></div>
+      <div class="meta"><div><h3>Next up</h3><p>Space for the next real thing I finish. A short case study beats a long list of unfinished ideas.</p></div><small>04</small></div>
+      <div class="ptags"><span>In progress</span><span>Coming when ready</span></div></article></div>
+  </div>
+</div></section>
+
+<section class="section" id="journey"><div class="shell">
+  <div class="head reveal"><div><div class="kicker">03 / The learning curve</div><h2>Still learning.<br><em>On purpose.</em></h2></div>
+  <p class="desc">Areas I’m exploring, not claims of mastery. The goal is to keep practising and show the work as it improves.</p></div>
+  <div class="jgrid">
+    <article class="jcard reveal"><i>⌘</i><h3>Building for the web</h3><p>Creating clean, accessible websites and improving at HTML, CSS, JavaScript, responsive layouts, and useful interactions.</p></article>
+    <article class="jcard reveal" style="--d:.08s"><i>⌁</i><h3>Understanding systems</h3><p>Learning how computers, networks, and Linux work, with an emphasis on safe labs and ethical cybersecurity basics.</p></article>
+    <article class="jcard reveal" style="--d:.16s"><i>↗</i><h3>Growing a business</h3><p>Learning through RafaBites: testing ideas, understanding customers, presenting products, and building sustainable habits.</p></article>
+  </div>
+</div></section>
+
+<section class="section" id="contact"><div class="shell"><div class="contact reveal">
+  <div><div class="kicker">04 / Say hello</div><h2>Good things start with a <em>conversation.</em></h2><p>Want to talk about a project, share an idea, or connect over tech and business? Reach out by Instagram or email.</p></div>
+  <div class="btns">
+    <a class="button" href="https://www.instagram.com/vbrookke" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+    <button class="button secondary" id="copyMail" type="button">Copy email</button>
+  </div>
+</div></div></section>
+</main>
+
+<footer class="shell"><span>© <span id="year"></span> Rafa Faril Hendrawan. Made while learning.</span>
+  <div><a href="https://www.instagram.com/vbrookke" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href="#home">Back to top ↑</a></div></footer>
+<div class="toast" id="toast" role="status">Email copied</div>
+
+<script>
+document.body.classList.remove('no-js');
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+$('#year').textContent=new Date().getFullYear();
+
+/* theme */
+const root=document.documentElement;
+try{const t=localStorage.getItem('theme'); if(t) root.dataset.theme=t;}catch(e){}
+$('#theme').onclick=()=>{
+  const dark=root.dataset.theme? root.dataset.theme==='dark' : matchMedia('(prefers-color-scheme:dark)').matches;
+  root.dataset.theme=dark?'light':'dark';
+  try{localStorage.setItem('theme',root.dataset.theme)}catch(e){}
+};
+
+/* mobile menu */
+const nav=$('#navlinks'), menu=$('#menu');
+const setMenu=o=>{nav.classList.toggle('open',o);menu.setAttribute('aria-expanded',o);menu.textContent=o?'×':'☰'};
+menu.onclick=()=>setMenu(!nav.classList.contains('open'));
+$$('#navlinks a').forEach(a=>a.onclick=()=>setMenu(false));
+addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
+
+/* images: show only when they actually load */
+$$('.portrait img,.pimg img').forEach(img=>{
+  const box=img.parentElement, ok=()=>box.classList.add('has-image');
+  img.addEventListener('load',ok);
+  if(img.complete&&img.naturalWidth) ok();
+});
+
+/* reveal + active nav */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+$$('.reveal').forEach(el=>io.observe(el));
+const links=$$('#navlinks a');
+const so=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting) links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id));
+}),{rootMargin:'-45% 0px -50% 0px'});
+$$('main section[id]').forEach(s=>so.observe(s));
+
+/* scroll progress */
+const bar=$('#progress');
+addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  bar.style.transform=`scaleX(${h.scrollTop/(h.scrollHeight-h.clientHeight||1)})`;
+},{passive:true});
+
+/* card tilt (desktop only) */
+if(matchMedia('(hover:hover) and (pointer:fine)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+  $$('.card').forEach(c=>{
+    c.addEventListener('pointermove',e=>{
+      const r=c.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      c.style.transform=`perspective(900px) rotateX(${y*-3}deg) rotateY(${x*3}deg) translateY(-4px)`;
+    });
+    c.addEventListener('pointerleave',()=>c.style.transform='');
+  });
+}
+
+/* contact: copy email (kept out of the HTML so basic scrapers don't pick it up) */
+const email=['hendrawati11231','gmail.com'].join('@');
+$('#copyMail').onclick=async()=>{
+  try{await navigator.clipboard.writeText(email)}catch(e){location.href='mailto:'+email;return}
+  const t=$('#toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);
+};
+</script>
+</body>
+</html>
